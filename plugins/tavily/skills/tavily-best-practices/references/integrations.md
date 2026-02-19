@@ -228,7 +228,7 @@ def process_tool_use(tool_use):
 
 # Initial request
 response = anthropic_client.messages.create(
-    model="claude-sonnet-4-20250514",
+    model="your-anthropic-model",
     max_tokens=1024,
     tools=tools,
     messages=[{"role": "user", "content": "What are the latest AI trends?"}]
@@ -241,7 +241,7 @@ if response.stop_reason == "tool_use":
 
     # Continue with results
     final = anthropic_client.messages.create(
-        model="claude-sonnet-4-20250514",
+        model="your-anthropic-model",
         max_tokens=1024,
         tools=tools,
         messages=[

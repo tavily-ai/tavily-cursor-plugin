@@ -14,17 +14,6 @@ The script uses OAuth via the Tavily MCP server. **No manual setup required** - 
 
 > **Note:** You must have an existing Tavily account. The OAuth flow only supports login — account creation is not available through this flow. [Sign up at tavily.com](https://tavily.com) first if you don't have an account.
 
-### Alternative: API Key
-
-If you prefer using an API key, get one at https://tavily.com and add to `~/.claude/settings.json`:
-```json
-{
-  "env": {
-    "TAVILY_API_KEY": "tvly-your-api-key-here"
-  }
-}
-```
-
 ## Quick Start
 
 > **Tip**: Research can take 30-120 seconds. Press **Ctrl+B** to run in the background.

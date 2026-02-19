@@ -1,6 +1,6 @@
 ---
 name: tavily-best-practices
-description: "Build production-ready Tavily integrations with best practices baked in. Reference documentation for developers using coding assistants (Claude Code, Cursor, etc.) to implement web search, content extraction, crawling, and research in agentic workflows, RAG systems, or autonomous agents."
+description: "Build production-ready Tavily integrations with best practices baked in. Reference documentation for developers using coding assistants like Cursor to implement web search, content extraction, crawling, and research in agentic workflows, RAG systems, or autonomous agents."
 ---
 
 # Tavily
@@ -9,18 +9,9 @@ Tavily is a search API designed for LLMs, enabling AI applications to access rea
 
 ## Prerequisites
 
-**Tavily API Key Required** - Get your key at https://app.tavily.com (1,000 free API credits/month, no credit card required)
+**Cursor plugin authentication** uses Tavily web auth (OAuth) via MCP.
 
-Add to `~/.claude/settings.json`:
-```json
-{
-  "env": {
-    "TAVILY_API_KEY": "tvly-YOUR_API_KEY"
-  }
-}
-```
-
-Restart Claude Code after adding your API key.
+For direct SDK usage outside the plugin, set `TAVILY_API_KEY` in your shell environment.
 
 ## Installation
 
