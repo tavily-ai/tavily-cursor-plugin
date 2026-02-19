@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "tavily": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://mcp.tavily.com/mcp"],
+      "env": {}
+    }
+  }
+}
