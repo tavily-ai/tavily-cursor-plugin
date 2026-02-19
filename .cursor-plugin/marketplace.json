@@ -1,0 +1,19 @@
+{
+  "name": "tavily-cursor-plugin",
+  "owner": {
+    "name": "Tavily",
+    "email": "evan.rimer@tavily.com"
+  },
+  "metadata": {
+    "description": "Official Tavily plugin for Cursor - web search, research, extraction, and crawling capabilities for AI-powered development",
+    "version": "1.0.0",
+    "pluginRoot": "plugins"
+  },
+  "plugins": [
+    {
+      "name": "tavily",
+      "source": "tavily",
+      "description": "Build AI applications with real-time web data using Tavily's search, extract, crawl, and research APIs."
+    }
+  ]
+}
