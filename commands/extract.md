@@ -1,6 +1,6 @@
 ---
 name: extract
-description: "URL content extraction for webpages, articles, PDFs. Usage: /extract <url> [url2] [url3]"
+description: "URL content extraction for webpages, articles, PDFs. Usage: /extract <url>"
 ---
 
 # URL Content Extraction

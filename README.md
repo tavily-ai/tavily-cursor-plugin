@@ -9,7 +9,7 @@ Official Tavily plugin for Cursor. Adds web search, content extraction, website 
 | Web Search | `tavily-search` | `/search` |
 | Content Extraction | `tavily-extract` | `/extract` |
 | Website Crawling | `tavily-crawl` | `/crawl` |
-| URL Discovery | `tavily-map` | `/map` |
+| URL Mapping | `tavily-map` | `/map` |
 | Deep Research | `tavily-research` | `/research` |
 
 Additional commands: `/tavily-setup`, `/tavily-status`, `/tavily-best-practices`

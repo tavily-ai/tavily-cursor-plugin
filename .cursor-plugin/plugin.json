@@ -14,6 +14,7 @@
   "logo": "plugins/tavily/.cursor-plugin/tavily_icon.svg",
   "keywords": ["search", "web-search", "rag", "agents", "llm", "research", "crawl", "extract", "map", "tavily", "tavily-cli"],
   "skills": "./skills/",
+  "mcpServers": "mcp.json",
   "commands": [
     "commands/tavily-setup.md",
     "commands/search.md",
