@@ -1,10 +1,10 @@
 ---
 name: research
-description: "Comprehensive research with citations and multi-source synthesis. Usage: /research <topic>"
+description: "Exhaustive multi-source research on a topic (slower, use only when explicitly requested). Usage: /research <topic>"
 ---
 
-# Research
+# Deep Research
 
 ## Topic: $ARGUMENTS
 
-Use the **research** skill to research this topic. Follow the skill instructions exactly.
+Use the **tavily-research** skill to research this topic. Follow the skill instructions exactly.

@@ -1,10 +1,10 @@
 ---
 name: search
-description: "Search the web using Tavily's LLM-optimized API. Usage: /search <query>"
+description: "Web search for a given query (default for most research queries). Usage: /search <query>"
 ---
 
 # Web Search
 
 ## Query: $ARGUMENTS
 
-Use the **search** skill to search for this query. Follow the skill instructions exactly.
+Use the **tavily-search** skill to search for this query. Follow the skill instructions exactly.

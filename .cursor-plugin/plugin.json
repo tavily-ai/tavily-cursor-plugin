@@ -1,8 +1,8 @@
 {
   "name": "tavily",
   "displayName": "Tavily",
-  "version": "1.0.0",
-  "description": "Build AI applications with real-time web data using Tavily's search, extract, crawl, and research APIs.",
+  "version": "2.0.0",
+  "description": "Web search, content extraction, crawling, deep research, and URL discovery powered by tvly CLI.",
   "author": {
     "name": "Tavily",
     "email": "evan.rimer@tavily.com",
@@ -12,14 +12,15 @@
   "repository": "https://github.com/tavily-ai/tavily-cursor-plugin",
   "license": "MIT",
   "logo": "plugins/tavily/.cursor-plugin/tavily_icon.svg",
-  "keywords": ["search", "web-search", "rag", "agents", "llm", "research", "crawl", "extract", "tavily"],
+  "keywords": ["search", "web-search", "rag", "agents", "llm", "research", "crawl", "extract", "map", "tavily", "tavily-cli"],
   "skills": "./skills/",
-  "mcpServers": "mcp.json",
   "commands": [
+    "commands/tavily-setup.md",
     "commands/search.md",
     "commands/extract.md",
     "commands/crawl.md",
     "commands/research.md",
+    "commands/tavily-status.md",
     "commands/tavily-best-practices.md"
   ]
 }
