@@ -1,35 +1,97 @@
 # Tavily Cursor Plugin
 
-Official Tavily plugin for Cursor. Adds web search, content extraction, website crawling, and AI-powered research capabilities.
+Official Tavily plugin for Cursor. Adds web search, content extraction, website crawling, URL discovery, and AI-powered research capabilities — powered by the `tvly` CLI.
 
-## Skills
+## Features
 
-| Skill | Command | Description |
-|-------|---------|-------------|
-| **Search** | `/search` | Search the web using Tavily's LLM-optimized API. Returns relevant results with content snippets, scores, and metadata. |
-| **Research** | `/research` | Comprehensive research on any topic with citations. Supports mini and pro models. |
-| **Extract** | `/extract` | Extract clean content from specific URLs. Returns markdown/text from web pages. |
-| **Crawl** | `/crawl` | Crawl websites to download documentation, knowledge bases, or web content as local markdown files. |
-| **Best Practices** | `/tavily-best-practices` | Reference documentation for building production-ready Tavily integrations. |
+| Capability | Skill | Command |
+|-----------|-------|---------|
+| Web Search | `tavily-search` | `/search` |
+| Content Extraction | `tavily-extract` | `/extract` |
+| Website Crawling | `tavily-crawl` | `/crawl` |
+| URL Mapping | `tavily-map` | `/map` |
+| Deep Research | `tavily-research` | `/research` |
 
-## Authentication
+Additional commands: `/tavily-setup`, `/tavily-status`, `/tavily-best-practices`
 
-**No manual setup required** — Uses OAuth via the Tavily MCP server.
+## Installation
 
-> You must have an existing Tavily account. The OAuth flow only supports login — account creation is not available through this flow. [Sign up at tavily.com](https://tavily.com) first if you don't have an account.
+1. Install the plugin in Cursor from the marketplace (or see Local Development to test from source).
+2. Run `/tavily-setup` to install `tvly` CLI and authenticate.
 
-On first run, the script will:
-1. Check for existing tokens in `~/.mcp-auth/`
-2. If none found, automatically open your browser for OAuth authentication
+### Manual CLI Setup
 
-### Alternative: API Key
-
-Get an API key at [https://tavily.com](https://tavily.com) and set it as an environment variable:
-
-```
-TAVILY_API_KEY=tvly-your-api-key-here
+```bash
+curl -fsSL https://cli.tavily.com/install.sh | bash
+tvly login
 ```
 
+Or via pip:
+
+```bash
+pip install tavily-cli
+tvly login
+```
+
+Or via uv:
+
+```bash
+uv tool install tavily-cli
+tvly login
+```
+
+## Quick Start
+
+Search the web:
+
+```
+/search latest developments in AI chip manufacturing
+```
+
+Extract content from a URL:
+
+```
+/extract https://docs.example.com/api
+```
+
+Crawl documentation:
+
+```
+/crawl https://docs.example.com
+```
+
+Discover URLs on a site:
+
+```
+/map https://docs.example.com
+```
+
+Deep research:
+
+```
+/research competitive landscape of AI code assistants
+```
+
+## Plugin Structure
+
+```
+.cursor-plugin/plugin.json    Plugin manifest
+skills/                        7 skills (auto-discovered)
+commands/                      8 slash commands
+rules/                         Citation standards rule
+```
+
+## Local Development
+
+1. Clone the repository
+2. Open the folder in Cursor
+3. Skills are auto-discovered from `skills/`
+4. For commands, symlink into `.cursor/`:
+   ```bash
+   ln -s ../commands .cursor/commands
+   ```
+5. Type `/` — the commands should now appear alongside the skills.
+6. Run `/tavily-setup` to confirm the CLI is installed and authenticated.
 
 ## License
 
