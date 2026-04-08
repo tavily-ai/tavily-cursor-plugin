@@ -2,7 +2,7 @@
   "name": "tavily",
   "displayName": "Tavily",
   "version": "2.0.0",
-  "description": "Web search, content extraction, crawling, deep research, and URL discovery powered by tvly CLI.",
+  "description": "USER LEVEL: You get sourced, cited answers and page content without leaving the editor—no browser tabs, no copy-paste from docs. PROJECT LEVEL: Agents ground their code suggestions in live documentation and real search results instead of stale training data. Search the web, extract pages, crawl sites, and run cited deep research via the Tavily CLI—output tuned for RAG, agents, and long-context workflows. BEST SUITED FOR: • Any project that references external APIs, libraries, or services with changing docs • Research-heavy tasks needing multi-source synthesis with citations • RAG and agent pipelines that consume web content as structured context",
   "author": {
     "name": "Tavily",
     "email": "evan.rimer@tavily.com",
@@ -12,7 +12,19 @@
   "repository": "https://github.com/tavily-ai/tavily-cursor-plugin",
   "license": "MIT",
   "logo": "plugins/tavily/.cursor-plugin/tavily_icon.svg",
-  "keywords": ["search", "web-search", "rag", "agents", "llm", "research", "crawl", "extract", "map", "tavily", "tavily-cli"],
+  "keywords": [
+    "search",
+    "web-search",
+    "rag",
+    "agents",
+    "llm",
+    "research",
+    "crawl",
+    "extract",
+    "map",
+    "tavily",
+    "tavily-cli"
+  ],
   "skills": "./skills/",
   "mcpServers": "mcp.json",
   "commands": [
