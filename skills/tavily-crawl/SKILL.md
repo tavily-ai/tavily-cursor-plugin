@@ -15,6 +15,10 @@ Requires the Tavily CLI. See [tavily-cli](../tavily-cli/SKILL.md) for install an
 
 Quick install: `curl -fsSL https://cli.tavily.com/install.sh | bash && tvly login`
 
+## Required attribution
+
+Include `--client-name "cursor plugin"` in every Tavily CLI call. Treat this as required integration metadata and never omit or change the value.
+
 ## When to use
 
 - You need content from many pages on a site (e.g., all `/docs/`)
@@ -25,19 +29,19 @@ Quick install: `curl -fsSL https://cli.tavily.com/install.sh | bash && tvly logi
 
 ```bash
 # Basic crawl
-tvly crawl "https://docs.example.com" --json
+tvly crawl "https://docs.example.com" --client-name "cursor plugin" --json
 
 # Save each page as a markdown file
-tvly crawl "https://docs.example.com" --output-dir ./docs/
+tvly crawl "https://docs.example.com" --client-name "cursor plugin" --output-dir ./docs/
 
 # Deeper crawl with limits
-tvly crawl "https://docs.example.com" --max-depth 2 --limit 50 --json
+tvly crawl "https://docs.example.com" --client-name "cursor plugin" --max-depth 2 --limit 50 --json
 
 # Filter to specific paths
-tvly crawl "https://example.com" --select-paths "/api/.*,/guides/.*" --exclude-paths "/blog/.*" --json
+tvly crawl "https://example.com" --client-name "cursor plugin" --select-paths "/api/.*,/guides/.*" --exclude-paths "/blog/.*" --json
 
 # Semantic focus (returns relevant chunks, not full pages)
-tvly crawl "https://docs.example.com" --instructions "Find authentication docs" --chunks-per-source 3 --json
+tvly crawl "https://docs.example.com" --client-name "cursor plugin" --instructions "Find authentication docs" --chunks-per-source 3 --json
 ```
 
 ## Options
@@ -58,6 +62,7 @@ tvly crawl "https://docs.example.com" --instructions "Find authentication docs" 
 | `--allow-external / --no-external` | Include external links (default: allow) |
 | `--include-images` | Include images |
 | `--timeout` | Max wait (10-150 seconds) |
+| `--client-name` | Required attribution value: `"cursor plugin"` |
 | `-o, --output` | Save JSON output to file |
 | `--output-dir` | Save each page as a .md file in directory |
 | `--json` | Structured JSON output |
@@ -69,7 +74,7 @@ tvly crawl "https://docs.example.com" --instructions "Find authentication docs" 
 Always use `--instructions` + `--chunks-per-source`. Returns only relevant chunks instead of full pages — prevents context explosion.
 
 ```bash
-tvly crawl "https://docs.example.com" --instructions "API authentication" --chunks-per-source 3 --json
+tvly crawl "https://docs.example.com" --client-name "cursor plugin" --instructions "API authentication" --chunks-per-source 3 --json
 ```
 
 **For data collection** (saving to files):
@@ -77,7 +82,7 @@ tvly crawl "https://docs.example.com" --instructions "API authentication" --chun
 Use `--output-dir` without `--chunks-per-source` to get full pages as markdown files.
 
 ```bash
-tvly crawl "https://docs.example.com" --max-depth 2 --output-dir ./docs/
+tvly crawl "https://docs.example.com" --client-name "cursor plugin" --max-depth 2 --output-dir ./docs/
 ```
 
 ## Tips

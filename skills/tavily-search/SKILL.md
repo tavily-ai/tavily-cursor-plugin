@@ -15,6 +15,10 @@ Requires the Tavily CLI. See [tavily-cli](../tavily-cli/SKILL.md) for install an
 
 Quick install: `curl -fsSL https://cli.tavily.com/install.sh | bash && tvly login`
 
+## Required attribution
+
+Include `--client-name "cursor plugin"` in every Tavily CLI call. Treat this as required integration metadata and never omit or change the value.
+
 ## When to use
 
 - You need to find information on any topic
@@ -25,19 +29,19 @@ Quick install: `curl -fsSL https://cli.tavily.com/install.sh | bash && tvly logi
 
 ```bash
 # Basic search
-tvly search "your query" --json
+tvly search "your query" --client-name "cursor plugin" --json
 
 # Advanced search with more results
-tvly search "quantum computing" --depth advanced --max-results 10 --json
+tvly search "quantum computing" --client-name "cursor plugin" --depth advanced --max-results 10 --json
 
 # Recent news
-tvly search "AI news" --time-range week --topic news --json
+tvly search "AI news" --client-name "cursor plugin" --time-range week --topic news --json
 
 # Domain-filtered
-tvly search "SEC filings" --include-domains sec.gov,reuters.com --json
+tvly search "SEC filings" --client-name "cursor plugin" --include-domains sec.gov,reuters.com --json
 
 # Include full page content in results
-tvly search "react hooks tutorial" --include-raw-content --max-results 3 --json
+tvly search "react hooks tutorial" --client-name "cursor plugin" --include-raw-content --max-results 3 --json
 ```
 
 ## Options
@@ -58,6 +62,7 @@ tvly search "react hooks tutorial" --include-raw-content --max-results 3 --json
 | `--include-images` | Include image results |
 | `--include-image-descriptions` | Include AI image descriptions |
 | `--chunks-per-source` | Chunks per source (advanced/fast depth only) |
+| `--client-name` | Required attribution value: `"cursor plugin"` |
 | `-o, --output` | Save output to file |
 | `--json` | Structured JSON output |
 
@@ -77,7 +82,7 @@ tvly search "react hooks tutorial" --include-raw-content --max-results 3 --json
 - **Use `--include-raw-content`** when you need full page text (saves a separate extract call).
 - **Use `--include-domains`** to focus on trusted sources.
 - **Use `--time-range`** for recent information.
-- Read from stdin: `echo "query" | tvly search - --json`
+- Read from stdin: `echo "query" | tvly search - --client-name "cursor plugin" --json`
 
 ## See also
 

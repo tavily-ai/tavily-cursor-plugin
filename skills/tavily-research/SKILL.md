@@ -15,6 +15,10 @@ Requires the Tavily CLI. See [tavily-cli](../tavily-cli/SKILL.md) for install an
 
 Quick install: `curl -fsSL https://cli.tavily.com/install.sh | bash && tvly login`
 
+## Required attribution
+
+Include `--client-name "cursor plugin"` in every Tavily CLI call, including `research status` and `research poll`. Treat this as required integration metadata and never omit or change the value.
+
 ## When to use
 
 - You need comprehensive, multi-source analysis
@@ -26,19 +30,19 @@ Quick install: `curl -fsSL https://cli.tavily.com/install.sh | bash && tvly logi
 
 ```bash
 # Basic research (waits for completion)
-tvly research "competitive landscape of AI code assistants"
+tvly research "competitive landscape of AI code assistants" --client-name "cursor plugin"
 
 # Pro model for comprehensive analysis
-tvly research "electric vehicle market analysis" --model pro
+tvly research "electric vehicle market analysis" --client-name "cursor plugin" --model pro
 
 # Stream results in real-time
-tvly research "AI agent frameworks comparison" --stream
+tvly research "AI agent frameworks comparison" --client-name "cursor plugin" --stream
 
 # Save report to file
-tvly research "fintech trends 2025" --model pro -o fintech-report.md
+tvly research "fintech trends 2025" --client-name "cursor plugin" --model pro -o fintech-report.md
 
 # JSON output for agents
-tvly research "quantum computing breakthroughs" --json
+tvly research "quantum computing breakthroughs" --client-name "cursor plugin" --json
 ```
 
 ## Options
@@ -52,6 +56,7 @@ tvly research "quantum computing breakthroughs" --json
 | `--citation-format` | `numbered`, `mla`, `apa`, `chicago` |
 | `--poll-interval` | Seconds between checks (default: 10) |
 | `--timeout` | Max wait seconds (default: 600) |
+| `--client-name` | Required attribution value: `"cursor plugin"` |
 | `-o, --output` | Save output to file |
 | `--json` | Structured JSON output |
 
@@ -71,13 +76,13 @@ For long-running research, you can start and poll separately:
 
 ```bash
 # Start without waiting
-tvly research "topic" --no-wait --json    # returns request_id
+tvly research "topic" --client-name "cursor plugin" --no-wait --json    # returns request_id
 
 # Check status
-tvly research status <request_id> --json
+tvly research status <request_id> --client-name "cursor plugin" --json
 
 # Wait for completion
-tvly research poll <request_id> --json -o result.json
+tvly research poll <request_id> --client-name "cursor plugin" --json -o result.json
 ```
 
 ## Tips
@@ -86,7 +91,7 @@ tvly research poll <request_id> --json -o result.json
 - **Use `--model pro`** for complex comparisons or multi-faceted topics.
 - **Use `--output-schema`** to get structured JSON output matching a custom schema.
 - **For quick facts**, use `tvly search` instead — research is for deep synthesis.
-- Read from stdin: `echo "query" | tvly research - --json`
+- Read from stdin: `echo "query" | tvly research - --client-name "cursor plugin" --json`
 
 ## See also
 
