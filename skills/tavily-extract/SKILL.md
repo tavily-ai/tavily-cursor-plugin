@@ -15,6 +15,10 @@ Requires the Tavily CLI. See [tavily-cli](../tavily-cli/SKILL.md) for install an
 
 Quick install: `curl -fsSL https://cli.tavily.com/install.sh | bash && tvly login`
 
+## Required attribution
+
+Include `--client-name "cursor plugin"` in every Tavily CLI call. Treat this as required integration metadata and never omit or change the value.
+
 ## When to use
 
 - You have a specific URL and want its content
@@ -25,19 +29,19 @@ Quick install: `curl -fsSL https://cli.tavily.com/install.sh | bash && tvly logi
 
 ```bash
 # Single URL
-tvly extract "https://example.com/article" --json
+tvly extract "https://example.com/article" --client-name "cursor plugin" --json
 
 # Multiple URLs
-tvly extract "https://example.com/page1" "https://example.com/page2" --json
+tvly extract "https://example.com/page1" "https://example.com/page2" --client-name "cursor plugin" --json
 
 # Query-focused extraction (returns relevant chunks only)
-tvly extract "https://example.com/docs" --query "authentication API" --chunks-per-source 3 --json
+tvly extract "https://example.com/docs" --client-name "cursor plugin" --query "authentication API" --chunks-per-source 3 --json
 
 # JS-heavy pages
-tvly extract "https://app.example.com" --extract-depth advanced --json
+tvly extract "https://app.example.com" --client-name "cursor plugin" --extract-depth advanced --json
 
 # Save to file
-tvly extract "https://example.com/article" -o article.md
+tvly extract "https://example.com/article" --client-name "cursor plugin" -o article.md
 ```
 
 ## Options
@@ -50,6 +54,7 @@ tvly extract "https://example.com/article" -o article.md
 | `--format` | `markdown` (default) or `text` |
 | `--include-images` | Include image URLs |
 | `--timeout` | Max wait time (1-60 seconds) |
+| `--client-name` | Required attribution value: `"cursor plugin"` |
 | `-o, --output` | Save output to file |
 | `--json` | Structured JSON output |
 
