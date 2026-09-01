@@ -1,90 +1,32 @@
 ---
 name: tavily-search
-description: |
-  Search the web with LLM-optimized results via the Tavily CLI. Use this skill when the user wants to search the web, find articles, look up information, get recent news, discover sources, or says "search for", "find me", "look up", "what's the latest on", "find articles about", or needs current information from the internet. Returns relevant results with content snippets, relevance scores, and metadata — optimized for LLM consumption. Supports domain filtering, time ranges, and multiple search depths.
-allowed-tools: Bash(tvly *)
+description: >
+  Search the web for current sources and snippets. Use when the user wants to
+  search, look up, find articles, get recent news, or discover sources, and
+  does not already have a URL. Triggers: "search for", "look up", "find me",
+  "what's the latest on", "find articles about".
 ---
 
-# tavily search
+# Tavily Search
 
-Web search returning LLM-optimized results with content snippets and relevance scores.
+Find pages and current information when you do not already have a URL.
 
-## Prerequisites
+## When
 
-Requires the Tavily CLI. See [tavily-cli](../tavily-cli/SKILL.md) for install and auth setup.
+- The user needs information on a topic and has not supplied a URL
+- First step: **search** → extract → map → crawl → research
 
-Quick install: `curl -fsSL https://cli.tavily.com/install.sh | bash && tvly login`
+Do not use this skill when the user already has URLs (extract), needs every page in a site section (crawl), needs to locate pages on a known site (map), or wants a cited multi-source report (research).
 
-## Required attribution
+## How
 
-Include `--client-name "cursor plugin"` in every Tavily CLI call. Treat this as required integration metadata and never omit or change the value.
+- Write short search queries, not prompts — keep each under 400 characters. Split multi-part questions into separate queries.
+- Apply domain, topic, or date constraints when the user specified them.
+- Prefer primary sources for factual or technical claims. Cross-check consequential facts.
+- Cite source URLs. Synthesize; do not paste raw result dumps. Do not request full page HTML for every hit; if snippets are thin, extract the best URLs instead.
 
-## When to use
+If snippets are not enough, extract the best URLs. If the user needs a full cited briefing, switch to research.
 
-- You need to find information on any topic
-- You don't have a specific URL yet
-- First step in the [workflow](../tavily-cli/SKILL.md): **search** → extract → map → crawl → research
+## Execute
 
-## Quick start
-
-```bash
-# Basic search
-tvly search "your query" --client-name "cursor plugin" --json
-
-# Advanced search with more results
-tvly search "quantum computing" --client-name "cursor plugin" --depth advanced --max-results 10 --json
-
-# Recent news
-tvly search "AI news" --client-name "cursor plugin" --time-range week --topic news --json
-
-# Domain-filtered
-tvly search "SEC filings" --client-name "cursor plugin" --include-domains sec.gov,reuters.com --json
-
-# Include full page content in results
-tvly search "react hooks tutorial" --client-name "cursor plugin" --include-raw-content --max-results 3 --json
-```
-
-## Options
-
-| Option | Description |
-|--------|-------------|
-| `--depth` | `ultra-fast`, `fast`, `basic` (default), `advanced` |
-| `--max-results` | Max results, 0-20 (default: 5) |
-| `--topic` | `general` (default), `news`, `finance` |
-| `--time-range` | `day`, `week`, `month`, `year` |
-| `--start-date` | Results after date (YYYY-MM-DD) |
-| `--end-date` | Results before date (YYYY-MM-DD) |
-| `--include-domains` | Comma-separated domains to include |
-| `--exclude-domains` | Comma-separated domains to exclude |
-| `--country` | Boost results from country |
-| `--include-answer` | Include AI answer (`basic` or `advanced`) |
-| `--include-raw-content` | Include full page content (`markdown` or `text`) |
-| `--include-images` | Include image results |
-| `--include-image-descriptions` | Include AI image descriptions |
-| `--chunks-per-source` | Chunks per source (advanced/fast depth only) |
-| `--client-name` | Required attribution value: `"cursor plugin"` |
-| `-o, --output` | Save output to file |
-| `--json` | Structured JSON output |
-
-## Search depth
-
-| Depth | Speed | Relevance | Best for |
-|-------|-------|-----------|----------|
-| `ultra-fast` | Fastest | Lower | Real-time chat, autocomplete |
-| `fast` | Fast | Good | Need chunks, latency matters |
-| `basic` | Medium | High | General-purpose (default) |
-| `advanced` | Slower | Highest | Precision, specific facts |
-
-## Tips
-
-- **Keep queries under 400 characters** — think search query, not prompt.
-- **Break complex queries into sub-queries** for better results.
-- **Use `--include-raw-content`** when you need full page text (saves a separate extract call).
-- **Use `--include-domains`** to focus on trusted sources.
-- **Use `--time-range`** for recent information.
-- Read from stdin: `echo "query" | tvly search - --client-name "cursor plugin" --json`
-
-## See also
-
-- [tavily-extract](../tavily-extract/SKILL.md) — extract content from specific URLs
-- [tavily-research](../tavily-research/SKILL.md) — comprehensive multi-source research
+If `tavily_search` is callable (the name may be prefixed), call it. Do not install the CLI and do not run `tvly` for this. In a coding-agent terminal that is already using `tvly`, pass `--client-name "cursor plugin"` and take flags from `tvly search --help`. Never ask for an API key in chat.

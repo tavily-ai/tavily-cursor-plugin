@@ -7,4 +7,4 @@ description: "URL content extraction for webpages, articles, PDFs. Usage: /extra
 
 ## URLs: $ARGUMENTS
 
-Use the **tavily-extract** skill to extract content from these URLs. Follow the skill instructions exactly.
+Use the **tavily-extract** skill.

@@ -7,4 +7,4 @@ description: "Exhaustive multi-source research on a topic (slower, use only when
 
 ## Topic: $ARGUMENTS
 
-Use the **tavily-research** skill to research this topic. Follow the skill instructions exactly.
+Use the **tavily-research** skill.

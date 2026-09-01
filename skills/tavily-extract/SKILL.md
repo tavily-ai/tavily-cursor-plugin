@@ -1,79 +1,32 @@
 ---
 name: tavily-extract
-description: |
-  Extract clean markdown or text content from specific URLs via the Tavily CLI. Use this skill when the user has one or more URLs and wants their content, says "extract", "grab the content from", "pull the text from", "get the page at", "read this webpage", or needs clean text from web pages. Handles JavaScript-rendered pages, returns LLM-optimized markdown, and supports query-focused chunking for targeted extraction. Can process up to 20 URLs in a single call.
-allowed-tools: Bash(tvly *)
+description: >
+  Extract clean content from known URLs. Use when the user supplies one or more
+  URLs and wants the page text, says "extract", "grab the content from",
+  "pull the text from", "get the page at", or "read this webpage".
 ---
 
-# tavily extract
+# Tavily Extract
 
-Extract clean markdown or text content from one or more URLs.
+Pull clean page content from URLs you already have.
 
-## Prerequisites
+## When
 
-Requires the Tavily CLI. See [tavily-cli](../tavily-cli/SKILL.md) for install and auth setup.
+- The user provided URLs, or search already found the right pages
+- Step 2: search → **extract** → map → crawl → research
 
-Quick install: `curl -fsSL https://cli.tavily.com/install.sh | bash && tvly login`
+Do not use this skill to discover pages (search or map) or to bulk-collect a whole site section (crawl).
 
-## Required attribution
+## How
 
-Include `--client-name "cursor plugin"` in every Tavily CLI call. Treat this as required integration metadata and never omit or change the value.
+- Extract only the URLs you need, at most 20 per call. Batch larger lists.
+- Prefer query-focused extraction on long docs instead of entire pages.
+- Retry with a deeper extract when the page is JavaScript-heavy, protected, or table-heavy and the first pass is empty or thin.
+- Skip extract when search results already include the content you need.
+- Cite URLs. Summarize for the user; do not dump full page text unless they asked for it.
 
-## When to use
+If many pages on one site are required, crawl. If you still need to find the right path on a large site, map first.
 
-- You have a specific URL and want its content
-- You need text from JavaScript-rendered pages
-- Step 2 in the [workflow](../tavily-cli/SKILL.md): search → **extract** → map → crawl → research
+## Execute
 
-## Quick start
-
-```bash
-# Single URL
-tvly extract "https://example.com/article" --client-name "cursor plugin" --json
-
-# Multiple URLs
-tvly extract "https://example.com/page1" "https://example.com/page2" --client-name "cursor plugin" --json
-
-# Query-focused extraction (returns relevant chunks only)
-tvly extract "https://example.com/docs" --client-name "cursor plugin" --query "authentication API" --chunks-per-source 3 --json
-
-# JS-heavy pages
-tvly extract "https://app.example.com" --client-name "cursor plugin" --extract-depth advanced --json
-
-# Save to file
-tvly extract "https://example.com/article" --client-name "cursor plugin" -o article.md
-```
-
-## Options
-
-| Option | Description |
-|--------|-------------|
-| `--query` | Rerank chunks by relevance to this query |
-| `--chunks-per-source` | Chunks per URL (1-5, requires `--query`) |
-| `--extract-depth` | `basic` (default) or `advanced` (for JS pages) |
-| `--format` | `markdown` (default) or `text` |
-| `--include-images` | Include image URLs |
-| `--timeout` | Max wait time (1-60 seconds) |
-| `--client-name` | Required attribution value: `"cursor plugin"` |
-| `-o, --output` | Save output to file |
-| `--json` | Structured JSON output |
-
-## Extract depth
-
-| Depth | When to use |
-|-------|-------------|
-| `basic` | Simple pages, fast — try this first |
-| `advanced` | JS-rendered SPAs, dynamic content, tables |
-
-## Tips
-
-- **Max 20 URLs per request** — batch larger lists into multiple calls.
-- **Use `--query` + `--chunks-per-source`** to get only relevant content instead of full pages.
-- **Try `basic` first**, fall back to `advanced` if content is missing.
-- **Set `--timeout`** for slow pages (up to 60s).
-- If search results already contain the content you need (via `--include-raw-content`), skip the extract step.
-
-## See also
-
-- [tavily-search](../tavily-search/SKILL.md) — find pages when you don't have a URL
-- [tavily-crawl](../tavily-crawl/SKILL.md) — extract content from many pages on a site
+If `tavily_extract` is callable (the name may be prefixed), call it. Do not install the CLI and do not run `tvly` for this. In a coding-agent terminal that is already using `tvly`, pass `--client-name "cursor plugin"` and take flags from `tvly extract --help`. Never ask for an API key in chat.
