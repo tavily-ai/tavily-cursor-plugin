@@ -1,99 +1,30 @@
 ---
 name: tavily-research
-description: |
-  Conduct comprehensive AI-powered research with citations via the Tavily CLI. Use this skill when the user wants deep research, a detailed report, a comparison, market analysis, literature review, or says "research", "investigate", "analyze in depth", "compare X vs Y", "what does the market look like for", or needs multi-source synthesis with explicit citations. Returns a structured report grounded in web sources. Takes 30-120 seconds. For quick fact-finding, use tavily-search instead.
-allowed-tools: Bash(tvly *)
+description: >
+  Produce cited multi-source research. Use when the user wants a deep report,
+  comparison, market analysis, or literature review, or says "research",
+  "investigate", "analyze in depth", "compare X vs Y", or "what does the
+  market look like for". For a quick fact, use tavily-search instead.
 ---
 
-# tavily research
+# Tavily Research
 
-AI-powered deep research that gathers sources, analyzes them, and produces a cited report. Takes 30-120 seconds.
+Synthesize a grounded report from multiple sources, with citations. This is slower than search.
 
-## Prerequisites
+## When
 
-Requires the Tavily CLI. See [tavily-cli](../tavily-cli/SKILL.md) for install and auth setup.
+- The user needs comparison, market context, or a literature-style brief
+- Quick search snippets are not enough
+- Step 5: search → extract → map → crawl → **research**
 
-Quick install: `curl -fsSL https://cli.tavily.com/install.sh | bash && tvly login`
+Do not use this skill for a simple lookup (search) or for pulling one site’s docs (crawl).
 
-## Required attribution
+## How
 
-Include `--client-name "cursor plugin"` in every Tavily CLI call, including `research status` and `research poll`. Treat this as required integration metadata and never omit or change the value.
+- Clarify scope, freshness, geography, and output shape only when they are ambiguous.
+- Wait for the research run to finish. Preserve source URLs and distinguish sourced facts from your analysis.
+- Prefer research when the deliverable is the report. Prefer search when the user wants a short answer now.
 
-## When to use
+## Execute
 
-- You need comprehensive, multi-source analysis
-- The user wants a comparison, market report, or literature review
-- Quick searches aren't enough — you need synthesis with citations
-- Step 5 in the [workflow](../tavily-cli/SKILL.md): search → extract → map → crawl → **research**
-
-## Quick start
-
-```bash
-# Basic research (waits for completion)
-tvly research "competitive landscape of AI code assistants" --client-name "cursor plugin"
-
-# Pro model for comprehensive analysis
-tvly research "electric vehicle market analysis" --client-name "cursor plugin" --model pro
-
-# Stream results in real-time
-tvly research "AI agent frameworks comparison" --client-name "cursor plugin" --stream
-
-# Save report to file
-tvly research "fintech trends 2025" --client-name "cursor plugin" --model pro -o fintech-report.md
-
-# JSON output for agents
-tvly research "quantum computing breakthroughs" --client-name "cursor plugin" --json
-```
-
-## Options
-
-| Option | Description |
-|--------|-------------|
-| `--model` | `mini`, `pro`, or `auto` (default) |
-| `--stream` | Stream results in real-time |
-| `--no-wait` | Return request_id immediately (async) |
-| `--output-schema` | Path to JSON schema for structured output |
-| `--citation-format` | `numbered`, `mla`, `apa`, `chicago` |
-| `--poll-interval` | Seconds between checks (default: 10) |
-| `--timeout` | Max wait seconds (default: 600) |
-| `--client-name` | Required attribution value: `"cursor plugin"` |
-| `-o, --output` | Save output to file |
-| `--json` | Structured JSON output |
-
-## Model selection
-
-| Model | Use for | Speed |
-|-------|---------|-------|
-| `mini` | Single-topic, targeted research | ~30s |
-| `pro` | Comprehensive multi-angle analysis | ~60-120s |
-| `auto` | API chooses based on complexity | Varies |
-
-**Rule of thumb:** "What does X do?" → mini. "X vs Y vs Z" or "best way to..." → pro.
-
-## Async workflow
-
-For long-running research, you can start and poll separately:
-
-```bash
-# Start without waiting
-tvly research "topic" --client-name "cursor plugin" --no-wait --json    # returns request_id
-
-# Check status
-tvly research status <request_id> --client-name "cursor plugin" --json
-
-# Wait for completion
-tvly research poll <request_id> --client-name "cursor plugin" --json -o result.json
-```
-
-## Tips
-
-- **Research takes 30-120 seconds** — use `--stream` to see progress in real-time.
-- **Use `--model pro`** for complex comparisons or multi-faceted topics.
-- **Use `--output-schema`** to get structured JSON output matching a custom schema.
-- **For quick facts**, use `tvly search` instead — research is for deep synthesis.
-- Read from stdin: `echo "query" | tvly research - --client-name "cursor plugin" --json`
-
-## See also
-
-- [tavily-search](../tavily-search/SKILL.md) — quick web search for simple lookups
-- [tavily-crawl](../tavily-crawl/SKILL.md) — bulk extract from a site for your own analysis
+If `tavily_research` is callable (the name may be prefixed), call it. Do not install the CLI and do not run `tvly` for this. In a coding-agent terminal that is already using `tvly`, pass `--client-name "cursor plugin"` and take flags from `tvly research --help`. Never ask for an API key in chat.

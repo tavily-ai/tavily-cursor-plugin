@@ -1,99 +1,30 @@
 ---
 name: tavily-crawl
-description: |
-  Crawl websites and extract content from multiple pages via the Tavily CLI. Use this skill when the user wants to crawl a site, download documentation, extract an entire docs section, bulk-extract pages, save a site as local markdown files, or says "crawl", "get all the pages", "download the docs", "extract everything under /docs", "bulk extract", or needs content from many pages on the same domain. Supports depth/breadth control, path filtering, semantic instructions, and saving each page as a local markdown file.
-allowed-tools: Bash(tvly *)
+description: >
+  Collect content from many pages on the same site. Use when the user wants to
+  crawl, download docs, extract a whole section such as /docs, bulk-extract
+  pages, or says "get all the pages" or "extract everything under".
 ---
 
-# tavily crawl
+# Tavily Crawl
 
-Crawl a website and extract content from multiple pages. Supports saving each page as a local markdown file.
+Gather content from a site section, not from the open web.
 
-## Prerequisites
+## When
 
-Requires the Tavily CLI. See [tavily-cli](../tavily-cli/SKILL.md) for install and auth setup.
+- You need many pages under one site (docs, API reference, a path prefix)
+- Step 4: search → extract → map → **crawl** → research
 
-Quick install: `curl -fsSL https://cli.tavily.com/install.sh | bash && tvly login`
+Do not use this skill for a single known URL (extract), for URL discovery only (map), or for a cited multi-source report across the web (research).
 
-## Required attribution
+## How
 
-Include `--client-name "cursor plugin"` in every Tavily CLI call. Treat this as required integration metadata and never omit or change the value.
+- Map first when the target section is unclear.
+- Stay narrow: limit depth and page count; constrain to the paths you need.
+- For answering a question, prefer instruction-guided, chunked crawls over dumping every page into context.
+- For saving a docs tree onto disk, do that only in a terminal with a real filesystem. On a connector host, return the crawled content instead.
+- Cite the pages you used. Always cap the crawl so it cannot run away.
 
-## When to use
+## Execute
 
-- You need content from many pages on a site (e.g., all `/docs/`)
-- You want to download documentation for offline use
-- Step 4 in the [workflow](../tavily-cli/SKILL.md): search → extract → map → **crawl** → research
-
-## Quick start
-
-```bash
-# Basic crawl
-tvly crawl "https://docs.example.com" --client-name "cursor plugin" --json
-
-# Save each page as a markdown file
-tvly crawl "https://docs.example.com" --client-name "cursor plugin" --output-dir ./docs/
-
-# Deeper crawl with limits
-tvly crawl "https://docs.example.com" --client-name "cursor plugin" --max-depth 2 --limit 50 --json
-
-# Filter to specific paths
-tvly crawl "https://example.com" --client-name "cursor plugin" --select-paths "/api/.*,/guides/.*" --exclude-paths "/blog/.*" --json
-
-# Semantic focus (returns relevant chunks, not full pages)
-tvly crawl "https://docs.example.com" --client-name "cursor plugin" --instructions "Find authentication docs" --chunks-per-source 3 --json
-```
-
-## Options
-
-| Option | Description |
-|--------|-------------|
-| `--max-depth` | Levels deep (1-5, default: 1) |
-| `--max-breadth` | Links per page (default: 20) |
-| `--limit` | Total pages cap (default: 50) |
-| `--instructions` | Natural language guidance for semantic focus |
-| `--chunks-per-source` | Chunks per page (1-5, requires `--instructions`) |
-| `--extract-depth` | `basic` (default) or `advanced` |
-| `--format` | `markdown` (default) or `text` |
-| `--select-paths` | Comma-separated regex patterns to include |
-| `--exclude-paths` | Comma-separated regex patterns to exclude |
-| `--select-domains` | Comma-separated regex for domains to include |
-| `--exclude-domains` | Comma-separated regex for domains to exclude |
-| `--allow-external / --no-external` | Include external links (default: allow) |
-| `--include-images` | Include images |
-| `--timeout` | Max wait (10-150 seconds) |
-| `--client-name` | Required attribution value: `"cursor plugin"` |
-| `-o, --output` | Save JSON output to file |
-| `--output-dir` | Save each page as a .md file in directory |
-| `--json` | Structured JSON output |
-
-## Crawl for context vs. data collection
-
-**For agentic use** (feeding results to an LLM):
-
-Always use `--instructions` + `--chunks-per-source`. Returns only relevant chunks instead of full pages — prevents context explosion.
-
-```bash
-tvly crawl "https://docs.example.com" --client-name "cursor plugin" --instructions "API authentication" --chunks-per-source 3 --json
-```
-
-**For data collection** (saving to files):
-
-Use `--output-dir` without `--chunks-per-source` to get full pages as markdown files.
-
-```bash
-tvly crawl "https://docs.example.com" --client-name "cursor plugin" --max-depth 2 --output-dir ./docs/
-```
-
-## Tips
-
-- **Start conservative** — `--max-depth 1`, `--limit 20` — and scale up.
-- **Use `--select-paths`** to focus on the section you need.
-- **Use map first** to understand site structure before a full crawl.
-- **Always set `--limit`** to prevent runaway crawls.
-
-## See also
-
-- [tavily-map](../tavily-map/SKILL.md) — discover URLs before deciding to crawl
-- [tavily-extract](../tavily-extract/SKILL.md) — extract individual pages
-- [tavily-search](../tavily-search/SKILL.md) — find pages when you don't have a URL
+If `tavily_crawl` is callable (the name may be prefixed), call it. Do not install the CLI and do not run `tvly` for this. In a coding-agent terminal that is already using `tvly`, pass `--client-name "cursor plugin"` and take flags from `tvly crawl --help`. Never ask for an API key in chat.
