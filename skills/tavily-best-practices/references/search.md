@@ -63,10 +63,6 @@ Controls the latency vs. relevance tradeoff:
 | `end_date` | string | null | Results before date (YYYY-MM-DD) |
 | `include_domains` | array | [] | Domains to include (max 300, supports wildcards like `*.com`) |
 | `exclude_domains` | array | [] | Domains to exclude (max 150) |
-| `include_domains_mode` | enum | API default | `"prefer"` or `"restrict"`; requires `include_domains`; restrict returns only those hosts and subdomains |
-| `language` | string | null | Boost results in a language |
-| `filter_by_language` | boolean | false | Return only results in `language`; requires `language` |
-| `safe_search` | boolean | false | Filter unsafe content; not available with `fast` or `ultra-fast` |
 | `exact_match` | boolean | false | Require quoted phrases in `query` to match exactly; may reduce results |
 | `country` | enum | null | Boost results from country |
 | `include_answer` | bool/enum | false | `true`/`"basic"` or `"advanced"` for LLM answer |
