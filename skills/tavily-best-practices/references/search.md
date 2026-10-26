@@ -1,6 +1,6 @@
 # Search API Reference
 
-> **Scope:** this page documents the Tavily Search API and SDKs, and defaults differ by surface: the API default for `max_results` is 10, while the Python SDK and the hosted Tavily MCP search tool send 5. The hosted MCP tool does not accept every option below (for example `topic: finance`, `chunks_per_source`, `auto_parameters`, `include_usage`, or string modes for `include_answer` and `include_raw_content`); check the tool's schema from `tools/list` for what it accepts.
+> **Scope:** this page documents the Tavily Search API and SDKs. The API default for `max_results` is 10; clients may apply their own defaults. The hosted Tavily MCP search tool does not necessarily accept every option described here, so check the tool's schema from `tools/list` for what it accepts.
 
 ## Table of Contents
 
