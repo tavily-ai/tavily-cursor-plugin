@@ -1,6 +1,6 @@
 # Search API Reference
 
-> **Scope:** this page documents the Tavily Search API and SDKs. The hosted Tavily MCP search tool currently accepts only `query`, `max_results` (default 5), `search_depth`, `topic` (`general` or `news`), `time_range`, `include_images`, `include_image_descriptions`, `include_raw_content` (boolean), `include_domains`, `exclude_domains`, `country`, `include_favicon`, `start_date`, `end_date` and `exact_match`. Anything else described below (for example `topic: finance`, `chunks_per_source`, string modes for `include_answer` and `include_raw_content`, `auto_parameters`, `include_usage`) is available through the API and SDKs only, not through the hosted MCP tool.
+> **Scope:** this page documents the Tavily Search API and SDKs, and defaults differ by surface: the API default for `max_results` is 10, while the Python SDK and the hosted Tavily MCP search tool send 5. The hosted MCP tool does not accept every option below (for example `topic: finance`, `chunks_per_source`, `auto_parameters`, `include_usage`, or string modes for `include_answer` and `include_raw_content`); check the tool's schema from `tools/list` for what it accepts.
 
 ## Table of Contents
 
