@@ -5,7 +5,29 @@
 
 ## Migrating
 
-Install Tavily from the [Cursor Marketplace](https://cursor.com/marketplace/tavily). The plugin adds the Tavily skills and the hosted Tavily MCP server.
+Use one of these two methods. Each method adds the Tavily skills and the hosted Tavily MCP server to Cursor.
+
+### Cursor Marketplace
+
+In a new Cursor Agent chat, enter this command:
+
+```
+/add-plugin tavily
+```
+
+You can also install Tavily from the [Cursor Marketplace](https://cursor.com/marketplace/tavily) page.
+
+### Tavily CLI
+
+In a terminal, run this command. It requires Node.js 20.1 or later.
+
+```bash
+npx @tavily/cli init --agent cursor
+```
+
+The command installs `tvly`, signs you in, and sets up Cursor. Restart Cursor after the setup completes.
+
+### Local clones
 
 If you work from a local clone of this repository, switch to the Marketplace plugin. This repository does not receive updates.
 
