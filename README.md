@@ -1,98 +1,32 @@
 # Tavily Cursor Plugin
 
-Official Tavily plugin for the Cursor marketplace (including Grok Bot). Skills choose the capability. MCP provides the tools. The CLI is a terminal fallback.
+> [!IMPORTANT]
+> This plugin moved. The Tavily plugin for Cursor now lives in [tavily-ai/skills](https://github.com/tavily-ai/skills) and is available from the [Cursor Marketplace](https://cursor.com/marketplace/tavily). This repository is no longer maintained.
 
-## Features
+## Migrating
 
-| Capability | Skill | Command |
-|-----------|-------|---------|
-| Web Search | `tavily-search` | `/search` |
-| Content Extraction | `tavily-extract` | `/extract` |
-| URL Mapping | `tavily-map` | `/map` |
-| Website Crawling | `tavily-crawl` | `/crawl` |
-| Deep Research | `tavily-research` | `/research` |
+Install Tavily from the [Cursor Marketplace](https://cursor.com/marketplace/tavily). The plugin adds the Tavily skills and the hosted Tavily MCP server.
 
-Additional commands: `/tavily-setup`, `/tavily-status`, `/tavily-best-practices`
+A Cursor plugin is not an npm package, so there is no package name to replace in a configuration file.
 
-## Installation
+If you work from a local clone of this repository, switch to the Marketplace plugin. This repository does not receive updates.
 
-1. Install the plugin from the marketplace (or see Local Development to test from source).
-2. Connect the Tavily MCP server (OAuth). On a native host, that is the whole setup.
-3. In a coding-agent terminal only, run `/tavily-setup` if you need `tvly`.
+### What changed
 
-### Manual CLI Setup (terminal only)
+The plugin in tavily-ai/skills has a different set of skills:
 
-```bash
-curl -fsSL https://cli.tavily.com/install.sh | bash
-tvly login
-```
+- One `tavily-search` skill covers search, extract, map, and crawl.
+- The task skills are `tavily-research`, `tavily-entity`, `tavily-list`, and `tavily-monitor`.
+- The `tavily-sdk` skill holds reference documents for developers who build Tavily integrations.
+- The slash commands of this repository, such as `/search` and `/tavily-setup`, are not part of the new plugin.
 
-Or via pip:
+For setup, authentication, and the full list of skills, see the [Cursor plugin section](https://github.com/tavily-ai/skills#cursor-plugin) of the tavily-ai/skills README. The plugin manifest is in [`.cursor-plugin/`](https://github.com/tavily-ai/skills/tree/main/.cursor-plugin).
 
-```bash
-pip install tavily-cli
-tvly login
-```
+## Links
 
-Or via uv:
-
-```bash
-uv tool install tavily-cli
-tvly login
-```
-
-## Quick Start
-
-Search the web:
-
-```
-/search latest developments in AI chip manufacturing
-```
-
-Extract content from a URL:
-
-```
-/extract https://docs.example.com/api
-```
-
-Discover URLs on a site:
-
-```
-/map https://docs.example.com
-```
-
-Crawl documentation:
-
-```
-/crawl https://docs.example.com
-```
-
-Deep research:
-
-```
-/research competitive landscape of AI code assistants
-```
-
-## Plugin Structure
-
-```
-.cursor-plugin/plugin.json    Plugin manifest
-mcp.json                      Hosted Tavily MCP server
-skills/                       Capability skills (when to search, extract, map, crawl, research)
-commands/                     Slash commands
-```
-
-## Local Development
-
-1. Clone the repository
-2. Open the folder in Cursor
-3. Skills are auto-discovered from `skills/`
-4. For commands, symlink into `.cursor/`:
-   ```bash
-   ln -s ../commands .cursor/commands
-   ```
-5. Type `/` — the commands should now appear alongside the skills.
-6. Connect MCP, or run `/tavily-setup` in a terminal if you need the CLI.
+- [tavily-ai/skills](https://github.com/tavily-ai/skills)
+- [Tavily on the Cursor Marketplace](https://cursor.com/marketplace/tavily)
+- [Tavily Documentation](https://docs.tavily.com)
 
 ## License
 
