@@ -7,8 +7,6 @@
 
 Install Tavily from the [Cursor Marketplace](https://cursor.com/marketplace/tavily). The plugin adds the Tavily skills and the hosted Tavily MCP server.
 
-A Cursor plugin is not an npm package, so there is no package name to replace in a configuration file.
-
 If you work from a local clone of this repository, switch to the Marketplace plugin. This repository does not receive updates.
 
 ### What changed
